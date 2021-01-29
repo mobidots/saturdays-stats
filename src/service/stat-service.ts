@@ -32,12 +32,11 @@ export class StatService {
     stats.sort((a, b) => b.aMoV - a.aMoV);
     let rank = 1;
     for (let i = 0; i < stats.length; i++) {
-      if (i > 0 && stats[i - 1].aMoV === stats[i].aMoV) {
-        rank--;
+      if (i > 0 && stats[i - 1].aMoV !== stats[i].aMoV) {
+        rank = i+1;
       }
 
       stats[i].rank = rank;
-      rank++;
     }
 
     return stats;
