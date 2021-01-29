@@ -33,10 +33,11 @@ export class StatService {
     let rank = 1;
     for (let i = 0; i < stats.length; i++) {
       if (i > 0 && stats[i - 1].aMoV === stats[i].aMoV) {
-        rank--;
+        stats[i].rank = stats[i - 1].rank;
+      } else {
+        stats[i].rank = rank;
       }
 
-      stats[i].rank = rank;
       rank++;
     }
 
