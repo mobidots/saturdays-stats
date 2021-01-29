@@ -43,4 +43,36 @@ export class StatService {
 
     return stats;
   }
+
+  public static pickTeams(
+    players: string[],
+    stats: Stat[]
+  ): [string[], string[]] {
+    const teamPlayers = [];
+
+    for (const stat of stats) {
+      const teamPlayer = players.find(
+        (player) => player.toLowerCase() === stat.name.toLowerCase()
+      );
+
+      if (teamPlayer) {
+        teamPlayers.push(stat.name);
+      }
+    }
+
+    const team1Players = [];
+    const team2Players = [];
+
+    let addToTeam1 = true;
+    for (const teamPlayer of teamPlayers) {
+      if (addToTeam1) {
+        team1Players.push(teamPlayer);
+      } else {
+        team2Players.push(teamPlayer);
+      }
+      addToTeam1 = !addToTeam1;
+    }
+
+    return [team1Players, team2Players];
+  }
 }
