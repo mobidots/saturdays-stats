@@ -25,22 +25,22 @@
         <th>AMoV</th>
       </tr>
 
-      <% stats.forEach((stat, index)=> { %>
+      <% stats.forEach((stat)=> { %>
         <tr>
           <td>
-            <%= index+1 %>
+            <%= stat.rank %>
           </td>
           <td>
-            <%= stat.Name %>
+            <%= stat.name %>
           </td>
           <td>
-            <%= stat.GP %>
+            <%= stat.gp %>
           </td>
           <td>
-            <%= stat.TMoV %>
+            <%= stat.tMoV %>
           </td>
           <td>
-            <%= stat.AMoV %>
+            <%= stat.aMoV %>
           </td>
         </tr>
       <% }); %>
