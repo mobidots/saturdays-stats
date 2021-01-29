@@ -30,15 +30,12 @@ export class StatService {
 
     // Sort by AMoV and set ranking
     stats.sort((a, b) => b.aMoV - a.aMoV);
-    let rank = 1;
     for (let i = 0; i < stats.length; i++) {
       if (i > 0 && stats[i - 1].aMoV === stats[i].aMoV) {
         stats[i].rank = stats[i - 1].rank;
       } else {
-        stats[i].rank = rank;
+        stats[i].rank = i+1;
       }
-
-      rank++;
     }
 
     return stats;
