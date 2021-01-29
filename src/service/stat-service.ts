@@ -51,8 +51,10 @@ export class StatService {
     const teamPlayers = [];
 
     for (const stat of stats) {
-      const teamPlayer = players.find(
-        (player) => player.toLowerCase() === stat.name.toLowerCase()
+      const teamPlayer = players.find((player) =>
+        player.length > 2
+          ? stat.name.toLowerCase().indexOf(player.toLowerCase()) > -1
+          : player.toLowerCase() === stat.name.toLowerCase()
       );
 
       if (teamPlayer) {
