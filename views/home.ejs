@@ -105,11 +105,13 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var elems = document.querySelectorAll('.modal');
-      var instances = M.Modal.init(elems, {});
+      var instances = M.Modal.init(elems);
 
       <% if (team1Players && team1Players.length > 0) { %>
         const pickedTeamsModal = document.getElementById('pickedTeams');
-        const instance = M.Modal.init(pickedTeamsModal);
+        const instance = M.Modal.init(pickedTeamsModal, {
+          dismissible: false
+        });
         instance.open();
       <% } %>
     });
