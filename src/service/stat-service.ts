@@ -13,11 +13,15 @@ export class StatService {
         existingStat.tMoV = Math.evaluate(
           `${existingStat.tMoV} + ${csvStat.RD}`
         );
+        existingStat.tCS = Math.evaluate(
+          `${existingStat.tCS} + ${csvStat.CS}`
+        );
       } else {
         const newStat: Stat = {
           name: csvStat.Name,
           gp: 1,
           tMoV: Number(csvStat.RD),
+          tCS: Number(csvStat.CS),
         };
         stats.push(newStat);
       }
@@ -26,6 +30,7 @@ export class StatService {
     // Calculate AMoV
     for (const stat of stats) {
       stat.aMoV = Math.round(stat.tMoV / stat.gp, 2);
+      stat.aCS = Math.round(stat.tCS / stat.gp, 2);
     }
 
     // Sort by AMoV and set ranking
