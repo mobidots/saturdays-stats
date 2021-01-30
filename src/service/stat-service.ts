@@ -27,16 +27,17 @@ export class StatService {
       }
     }
 
-    // Calculate AMoV
+    // Calculate AMoV, ACS, and BOT
     for (const stat of stats) {
       stat.aMoV = Math.round(stat.tMoV / stat.gp, 2);
       stat.aCS = Math.round(stat.tCS / stat.gp, 2);
+      stat.bOT = Math.round(stat.aCS * (13 + stat.aMov), 2);
     }
 
-    // Sort by AMoV and set ranking
-    stats.sort((a, b) => b.aMoV - a.aMoV);
+    // Sort by BOT and set ranking
+    stats.sort((a, b) => b.bOT - a.bOT);
     for (let i = 0; i < stats.length; i++) {
-      if (i > 0 && stats[i - 1].aMoV === stats[i].aMoV) {
+      if (i > 0 && stats[i - 1].bOT === stats[i].bOT) {
         stats[i].rank = stats[i - 1].rank;
       } else {
         stats[i].rank = i+1;
