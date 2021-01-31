@@ -22,7 +22,7 @@
         <th>Games Played</th>
         <th>Average MoV</th>
         <th>Average CS</th>
-        <th title="(ACS * (13 + AMoV)) / 10">BOT</th>
+        <th class="tooltipped" data-position="top" data-tooltip="(ACS * (13 + AMoV)) / 10">BOT</th>
       </tr>
 
       <% stats.forEach((stat)=> { %>
@@ -108,8 +108,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.modal');
-      var instances = M.Modal.init(elems);
+      var modals = document.querySelectorAll('.modal');
+      M.Modal.init(modals);
+
+      var tooltips = document.querySelectorAll('.tooltipped');
+      M.Tooltip.init(tooltips);
 
       <% if (team1Players && team1Players.length > 0) { %>
         const pickedTeamsModal = document.getElementById('pickedTeams');
