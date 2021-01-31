@@ -20,8 +20,9 @@
         <th>#</th>
         <th>Name</th>
         <th>Games Played</th>
-        <th>TMoV</th>
-        <th>AMoV</th>
+        <th>Average MoV</th>
+        <th>Average CS</th>
+        <th>BOT</th>
       </tr>
 
       <% stats.forEach((stat)=> { %>
@@ -36,10 +37,13 @@
             <%= stat.gp %>
           </td>
           <td>
-            <%= stat.tMoV %>
+            <%= stat.aMoV %>
           </td>
           <td>
-            <%= stat.aMoV %>
+            <%= stat.aCS %>
+          </td>
+          <td>
+            <%= stat.bOT %>
           </td>
         </tr>
         <% }); %>

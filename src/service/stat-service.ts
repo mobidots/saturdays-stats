@@ -31,7 +31,7 @@ export class StatService {
     for (const stat of stats) {
       stat.aMoV = Math.round(stat.tMoV / stat.gp, 2);
       stat.aCS = Math.round(stat.tCS / stat.gp, 2);
-      stat.bOT = Math.round(stat.aCS * (13 + stat.aMov), 2);
+      stat.bOT = Math.round((stat.aCS * (13 + stat.aMoV)) / 10, 2);
     }
 
     // Sort by BOT and set ranking
