@@ -1,10 +1,12 @@
 import express from "express";
+import favicon from 'serve-favicon';
 import fs from "fs";
 import csvParser from "csv-parser";
 import { StatService } from "./service/stat-service";
 import bodyParser from "body-parser";
 
 const app = express();
+app.use(favicon('public/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", "views");
