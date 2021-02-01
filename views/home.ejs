@@ -54,11 +54,20 @@
   <div id="pickTeams" class="modal">
     <div class="modal-content">
       <form method="POST" action="/">
-        <div class="input-field col">
-          <textarea name="players" id="players" class="materialize-textarea"></textarea>
-          <label for="players">Type the names of the players, one per line</label>
+        <div class="row">
+          <% stats.forEach((stat)=> { %>
+            <div class="col s6 m4">
+              <div class="section">
+                <label class="black-text">
+                  <input type="checkbox" name="<%= stat.name %>" />
+                  <span><%= stat.name %></span>
+                </label>
+              </div>
+            </div>
+          <% }); %>
         </div>
-        <div class="col">
+
+        <div class="row center-align">
           <button type="submit" class="btn">Submit</button>
         </div>
       </form>

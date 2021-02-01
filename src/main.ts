@@ -28,12 +28,15 @@ app.post("/", async (req, res) => {
   let team1Players: string[] = [];
   let team2Players: string[] = [];
 
-  if (req && req.body && req.body["players"]) {
-    const players = req.body["players"].split("\r\n");
+  if (req && req.body) {
+    const players = Object.keys(req.body)
     console.log(players);
-    const teamPlayers = StatService.pickTeams(players, stats);
-    team1Players = teamPlayers[0];
-    team2Players = teamPlayers[1];
+
+    if (players.length) {
+      const teamPlayers = StatService.pickTeams(players, stats);
+      team1Players = teamPlayers[0];
+      team2Players = teamPlayers[1];
+    }
   }
 
   res.render("home.ejs", {
