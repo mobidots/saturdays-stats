@@ -11,8 +11,12 @@ app.set("views", "views");
 
 const port = process.env.PORT || 8080;
 
+let stats: Stat[] = [];
+getStats().then((s) => {
+  stats = s
+})
+
 app.get("/", async (req, res) => {
-  const stats = await getStats();
   let team1Players: string[] = [];
   let team2Players: string[] = [];
 
@@ -24,7 +28,6 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const stats = await getStats();
   let team1Players: string[] = [];
   let team2Players: string[] = [];
 
