@@ -28,22 +28,22 @@
       <% stats.forEach((stat)=> { %>
         <tr>
           <td>
-            <%= stat.rank %>
+            <%= stat.rank %><% if (stat.difference) { %> <small><%- stat.difference.rankText %></small><% } %>
           </td>
           <td>
             <%= stat.name %>
           </td>
           <td>
-            <%= stat.gp %>
+            <%= stat.gp %><% if (stat.difference) { %> <small><%- stat.difference.gpText %></small><% } %>
           </td>
           <td>
-            <%= stat.aMoV %>
+            <%= stat.aMoV %><% if (stat.difference) { %> <small><%- stat.difference.aMoVText %></small><% } %>
           </td>
           <td>
-            <%= stat.aCS %>
+            <%= stat.aCS %><% if (stat.difference) { %> <small><%- stat.difference.aCSText %></small><% } %>
           </td>
           <td>
-            <%= stat.bOT %>
+            <%= stat.bOT %><% if (stat.difference) { %> <small><%- stat.difference.bOTText %></small><% } %>
           </td>
         </tr>
         <% }); %>

@@ -52,16 +52,16 @@ app.post("/", async (req, res) => {
 });
 
 async function getStats(): Promise<Stat[]> {
-  let csvStats: CSVStat[] = [];
+  let csvFiles: CSVFile[] = [];
 
   const files = fs.readdirSync("stats");
 
   for (const fileName of files) {
-    const fileStats = await readStatsFromFile(`stats/${fileName}`);
-    csvStats = csvStats.concat(fileStats);
+    const csvStats = await readStatsFromFile(`stats/${fileName}`);
+    csvFiles.push({csvStats});
   }
 
-  return StatService.calculateStats(csvStats);
+  return StatService.calculateStats(csvFiles);
 }
 
 async function readStatsFromFile(filePath: string): Promise<CSVStat[]> {
