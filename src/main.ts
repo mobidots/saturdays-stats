@@ -14,6 +14,7 @@ app.set("views", "views");
 const port = process.env.PORT || 8080;
 
 let stats: Stat[] = [];
+let lastGame: string;
 getStats().then((s) => {
   stats = s
 })
@@ -26,6 +27,7 @@ app.get("/", async (req, res) => {
     stats,
     team1Players,
     team2Players,
+    lastGame
   });
 });
 
@@ -55,6 +57,7 @@ async function getStats(): Promise<Stat[]> {
   let csvFiles: CSVFile[] = [];
 
   const files = fs.readdirSync("stats");
+  lastGame = files[files.length-1].split('.')[0];
 
   for (const fileName of files) {
     const csvStats = await readStatsFromFile(`stats/${fileName}`);
