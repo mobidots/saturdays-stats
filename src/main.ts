@@ -50,6 +50,7 @@ app.post("/", async (req, res) => {
     stats,
     team1Players,
     team2Players,
+    lastGame
   });
 });
 
