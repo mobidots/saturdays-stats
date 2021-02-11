@@ -20,6 +20,7 @@ getStats().then((s) => {
 })
 
 app.get("/", async (req, res) => {
+  let scoreDifference;
   let team1Players: string[] = [];
   let team2Players: string[] = [];
 
@@ -27,11 +28,13 @@ app.get("/", async (req, res) => {
     stats,
     team1Players,
     team2Players,
+    scoreDifference,
     lastGame
   });
 });
 
 app.post("/", async (req, res) => {
+  let scoreDifference;
   let team1Players: string[] = [];
   let team2Players: string[] = [];
 
@@ -40,9 +43,10 @@ app.post("/", async (req, res) => {
     console.log(players);
 
     if (players.length) {
-      const teamPlayers = StatService.pickTeams(players, stats);
-      team1Players = teamPlayers[0];
-      team2Players = teamPlayers[1];
+      const pickTeamsResult = StatService.pickTeams(players, stats);
+      team1Players = pickTeamsResult[0];
+      team2Players = pickTeamsResult[1];
+      scoreDifference = pickTeamsResult[2];
     }
   }
 
@@ -50,6 +54,7 @@ app.post("/", async (req, res) => {
     stats,
     team1Players,
     team2Players,
+    scoreDifference,
     lastGame
   });
 });

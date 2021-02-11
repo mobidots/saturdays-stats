@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import * as Math from "mathjs";
 
 export class StatService {
@@ -99,7 +100,7 @@ export class StatService {
   public static pickTeams(
     players: string[],
     stats: Stat[]
-  ): [string[], string[]] {
+  ): [string[], string[], number] {
     const teamPlayers = [];
 
     for (const stat of stats) {
@@ -114,20 +115,60 @@ export class StatService {
       }
     }
 
-    const team1Players = [];
-    const team2Players = [];
+    let team1Players = [];
+    let team2Players = [];
 
-    let addToTeam1 = true;
-    for (const teamPlayer of teamPlayers) {
-      if (addToTeam1) {
-        team1Players.push(teamPlayer);
-      } else {
-        team2Players.push(teamPlayer);
+    let iter = 0;
+    let scoreDifference;
+    while (iter < 100) {
+      const tempPlayers = Object.assign([], teamPlayers);
+
+      for (let i = tempPlayers.length; i > 0; i--) {
+        let randomIndex = Math.floor(Math.random() * i);
+
+        let temp = tempPlayers[i - 1];
+        tempPlayers[i - 1] = tempPlayers[randomIndex];
+        tempPlayers[randomIndex] = temp;
       }
-      addToTeam1 = !addToTeam1;
+
+      let addToTeam1 = true;
+      let team1TotalBOT = 0;
+      let team2TotalBOT = 0;
+      for (const teamPlayer of tempPlayers) {
+        if (addToTeam1) {
+          team1TotalBOT += stats.find((stat) => stat.name === teamPlayer).bOT;
+        } else {
+          team2TotalBOT += stats.find((stat) => stat.name === teamPlayer).bOT;
+        }
+        addToTeam1 = !addToTeam1;
+      }
+
+      if (
+        !scoreDifference ||
+        Math.abs(team2TotalBOT - team1TotalBOT) < scoreDifference
+      ) {
+        scoreDifference = Math.round(
+          Math.abs(team2TotalBOT - team1TotalBOT),
+          2
+        );
+        team1Players = [];
+        team2Players = [];
+
+        let addToTeam1 = true;
+        for (const teamPlayer of tempPlayers) {
+          if (addToTeam1) {
+            team1Players.push(teamPlayer);
+          } else {
+            team2Players.push(teamPlayer);
+          }
+          addToTeam1 = !addToTeam1;
+        }
+      }
+
+      iter++;
     }
 
-    return [team1Players, team2Players];
+    return [team1Players, team2Players, scoreDifference];
   }
 
   private static getDifferenceText(num: number): string {
